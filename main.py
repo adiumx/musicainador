@@ -1,4 +1,4 @@
-
+import re
 def escalas(raiz, ton):
     datos = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
     ndatos = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -48,25 +48,36 @@ def acordes(raiz, tipo):
         datosc.append(datos[n])
         n+=1
     escala=escalas(raiz, M)
+    print(tipo)
     for i in range(len(tipo)):
         pass
-        el=tipo[i]
+        regex = r"\d+"
+        test_str = "".join(tipo[i])
         
-        try:
-            pass
-            if el[1]=="b":
-                pass
-                num = int(el[0])
-                num = num%7
-                acorde.append(datosc[datosc.index(escala[num])-1])
-            elif el[1]=="#":
-                num = int(el[0])
-                num = num%7
-                acorde.append(datosc[datosc.index(escala[num])+1])
-        except:
-            pass
-            acorde.append(escala[int(el)%7])
-        
+        matches = re.finditer(regex, test_str, re.MULTILINE)
+
+        for matchNum, match in enumerate(matches, start=1):
+            
+            print ("".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+            
+            for groupNum in range(0, len(match.groups())):
+                groupNum = groupNum + 1
+                
+                print ("".format(groupNum = groupNum, start = match.start(groupNum), end = match.end(groupNum), group = match.group(groupNum)))
+        print(test_str[match.start():match.end()])
+        regex1 = r"\D+"
+
+        matches = re.finditer(regex1, test_str, re.MULTILINE)
+
+        for matchNum, match in enumerate(matches, start=1):
+            
+            print ("".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+            
+            for groupNum in range(0, len(match.groups())):
+                groupNum = groupNum + 1
+                
+                print ("".format(groupNum = groupNum, start = match.start(groupNum), end = match.end(groupNum), group = match.group(groupNum)))
+            print(test_str[match.start():match.end()])
     return acorde
     
 M=["T", "T", "st" ,"T", "T", "T" ,"st" ]#escala mayor
@@ -101,5 +112,5 @@ septimamayornovenaoncena=["0","2","4","6","8","10"]
 raiz = "C"
 escala=escalas(raiz, M)
 print(escala)
-acorde=acordes(raiz, septimamayornovenaoncena)
+acorde=acordes(raiz, menor)
 print(acorde)
